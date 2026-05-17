@@ -615,7 +615,7 @@ let activeCat = null;
 let sel = { item: null, size: null, qty: 1, extras: [], note: '' };
 
 // ─── SOCKET ──────────────────────────────────────────────────────────────────
-const socket = io(SERVER, { query: { role: 'customer', tableId: TABLE_ID } });
+const socket = (typeof io !== "undefined") ? io(SERVER, { query: { role: "customer", tableId: TABLE_ID }, transports: ["polling"] }) : null;
 socket.on('connect',    ()  => console.log('socket ok'));
 socket.on('order:update', (o) => { if (o.tableId === TABLE_ID) showOrderUpdate(o); });
 
